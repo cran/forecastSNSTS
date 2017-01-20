@@ -1,6 +1,6 @@
 Package: forecastSNSTS
 Title: Forecasting for Stationary and Non-Stationary Time Series
-Version: 1.1-0
+Version: 1.1-1
 Authors@R: c(person("Tobias", "Kley", email = "t.kley@lse.ac.uk", role = c("aut", "cre")),
              person("Philip", "Preuss", email = "philip.preuss@rub.de", role = c("aut")),
              person("Piotr", "Fryzlewicz", email = "p.fryzlewicz@lse.ac.uk", role = c("aut")))
@@ -8,7 +8,8 @@ Description: Methods to compute linear h-step ahead prediction coefficients base
     on localised and iterated Yule-Walker estimates and empirical mean squared
     prediction errors for the resulting predictors. Also, functions to compute
     autocovariances for AR(p) processes, to simulate tvARMA(p,q) time series,
-    and to verify an assumption from a paper by the authors.
+    and to verify an assumption from Kley et al. (2017),
+    Preprint arXiv:1611.04460 <http://arxiv.org/abs/1611.04460>.
 Depends: R (>= 3.2.3)
 License: GPL (>= 2)
 URL: http://github.com/tobiaskley/forecastSNSTS
@@ -22,10 +23,10 @@ Collate: 'RcppExports.R' 'acfARp.R' 'f.R' 'forecastSNSTS-package.R'
 RoxygenNote: 5.0.1
 Suggests: testthat
 NeedsCompilation: yes
-Packaged: 2016-11-16 17:47:02 UTC; kley
+Packaged: 2017-01-19 18:44:57 UTC; KLEY
 Author: Tobias Kley [aut, cre],
   Philip Preuss [aut],
   Piotr Fryzlewicz [aut]
 Maintainer: Tobias Kley <t.kley@lse.ac.uk>
 Repository: CRAN
-Date/Publication: 2016-11-17 18:07:28
+Date/Publication: 2017-01-20 10:48:10
