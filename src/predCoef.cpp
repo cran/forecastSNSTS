@@ -21,7 +21,7 @@ using namespace Rcpp;
 //' where
 //' \deqn{\hat\Gamma_{N,T}^{(p)}(t) := \big[ \hat \gamma_{i-j;N,T}(t) \big]_{i,j = 1, \ldots, p}, \quad \hat \gamma_{N,T}^{(p)}(t) := \big( \hat \gamma_{1;N,T}(t), \ldots, \hat \gamma_{p;N,T}(t) \big)'}
 //' and
-//' \deqn{\hat \gamma_{k;N,T}(t) := \frac{1}{N-|k|} \sum_{\ell=t-N+|k|+1}^{t} X_{\ell-|k|,T} X_{\ell,T}}
+//' \deqn{\hat \gamma_{k;N,T}(t) := \frac{1}{N} \sum_{\ell=t-N+|k|+1}^{t} X_{\ell-|k|,T} X_{\ell,T}}
 //' is the usual lag-\eqn{k} autocovariance estimator (without mean adjustment),
 //' computed from the observations \eqn{X_{t-N+1}, \ldots, X_{t}}.
 //'
@@ -29,7 +29,7 @@ using namespace Rcpp;
 //' Yule-Walker equations (cf. Brockwell/Davis (1991), Proposition 5.2.1).
 //' To compute the \eqn{h}-step ahead coefficients we use the recursive relationship
 //' \deqn{\hat v_{i,N,T}^{(p)}(t,h) = \hat a_{i,N,T}^{(p)}(t) \hat v_{1,N,T}^{(p,h-1)}(t) + \hat v_{i+1,N,T}^{(p,h-1)}(t) I\{i \leq p-1\},}
-//' (cf. the proof of Lemma E.3 in Kley et al. (2017)).
+//' (cf. Section 3.2, Step 3, in Kley et al. (2019)).
 //'
 //' @name predCoef
 //' @export
@@ -155,8 +155,8 @@ List predCoef(NumericVector X, int P, int H, IntegerVector t, IntegerVector N) {
             for (int j = 0; j < n-k; j++) {
                res += x[j]*x[j+k];
             }
-            gamma[k] = res / (n-k);
-            // gamma[k] = res / n;
+            //gamma[k] = res / (n-k);
+            gamma[k] = res / n;
          }
          
          // Iteration 0

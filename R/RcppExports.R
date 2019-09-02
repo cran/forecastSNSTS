@@ -21,7 +21,7 @@
 #' \deqn{\frac{1}{|\mathcal{T}|} \sum_{t \in \mathcal{T}} (X_{t+h} - (X_t, \ldots, X_{t-p+1}) \hat v_{N[j.N],T}^{(p,h)}(t))^2}
 #' is then stored in the resulting matrix at position \code{(p, j.N)}. 
 #'
-#' @aliases computeMSPEcpp
+#' @name computeMSPEcpp
 #'
 #' @param X the data
 #' @param coef the array of coefficients.
@@ -36,7 +36,7 @@
 NULL
 
 computeMSPEcpp <- function(X, coef, h, t, type, trimLo, trimUp) {
-    .Call('forecastSNSTS_computeMSPEcpp', PACKAGE = 'forecastSNSTS', X, coef, h, t, type, trimLo, trimUp)
+    .Call('_forecastSNSTS_computeMSPEcpp', PACKAGE = 'forecastSNSTS', X, coef, h, t, type, trimLo, trimUp)
 }
 
 #' \eqn{h}-step Prediction coefficients
@@ -57,7 +57,7 @@ computeMSPEcpp <- function(X, coef, h, t, type, trimLo, trimUp) {
 #' where
 #' \deqn{\hat\Gamma_{N,T}^{(p)}(t) := \big[ \hat \gamma_{i-j;N,T}(t) \big]_{i,j = 1, \ldots, p}, \quad \hat \gamma_{N,T}^{(p)}(t) := \big( \hat \gamma_{1;N,T}(t), \ldots, \hat \gamma_{p;N,T}(t) \big)'}
 #' and
-#' \deqn{\hat \gamma_{k;N,T}(t) := \frac{1}{N-|k|} \sum_{\ell=t-N+|k|+1}^{t} X_{\ell-|k|,T} X_{\ell,T}}
+#' \deqn{\hat \gamma_{k;N,T}(t) := \frac{1}{N} \sum_{\ell=t-N+|k|+1}^{t} X_{\ell-|k|,T} X_{\ell,T}}
 #' is the usual lag-\eqn{k} autocovariance estimator (without mean adjustment),
 #' computed from the observations \eqn{X_{t-N+1}, \ldots, X_{t}}.
 #'
@@ -65,7 +65,7 @@ computeMSPEcpp <- function(X, coef, h, t, type, trimLo, trimUp) {
 #' Yule-Walker equations (cf. Brockwell/Davis (1991), Proposition 5.2.1).
 #' To compute the \eqn{h}-step ahead coefficients we use the recursive relationship
 #' \deqn{\hat v_{i,N,T}^{(p)}(t,h) = \hat a_{i,N,T}^{(p)}(t) \hat v_{1,N,T}^{(p,h-1)}(t) + \hat v_{i+1,N,T}^{(p,h-1)}(t) I\{i \leq p-1\},}
-#' (cf. the proof of Lemma E.3 in Kley et al. (2017)).
+#' (cf. Section 3.2, Step 3, in Kley et al. (2019)).
 #'
 #' @name predCoef
 #' @export
@@ -111,14 +111,14 @@ computeMSPEcpp <- function(X, coef, h, t, type, trimLo, trimUp) {
 NULL
 
 predCoef <- function(X, P, H, t, N) {
-    .Call('forecastSNSTS_predCoef', PACKAGE = 'forecastSNSTS', X, P, H, t, N)
+    .Call('_forecastSNSTS_predCoef', PACKAGE = 'forecastSNSTS', X, P, H, t, N)
 }
 
 #' Workhorse function for tvARMA time series generation
 #'
 #' More explanation!
 #'
-#' @aliases tvARMAcpp
+#' @name tvARMAcpp
 #'
 #' @param z a ...
 #' @param x_int a ...
@@ -131,6 +131,6 @@ predCoef <- function(X, P, H, t, N) {
 NULL
 
 tvARMAcpp <- function(z, x_init, A, B, Sigma) {
-    .Call('forecastSNSTS_tvARMAcpp', PACKAGE = 'forecastSNSTS', z, x_init, A, B, Sigma)
+    .Call('_forecastSNSTS_tvARMAcpp', PACKAGE = 'forecastSNSTS', z, x_init, A, B, Sigma)
 }
 
